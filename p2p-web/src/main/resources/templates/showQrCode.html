@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="keywords" content="动力金融网，投资理财，P2P理财，互联网金融，投资理财，理财，网络贷款，个人贷款，小额贷款，网络投融资平台, 网络理财, 固定收益, 100%本息保障" />
+    <meta name="description" content="动力金融网-专业的互联网金融平台！预期年化收益可高达13%，第三方资金托管，屡获大奖。"/>
+    <title>动力金融网-专业的互联网金融公司</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/center.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fund-guanli.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/security.css}"/>
+    <script type="text/javascript" language="javascript" th:src="@{/js/jquery-1.7.2.min.js}"></script>
+    <script type="text/javascript" language="javascript" th:src="@{/js/trafficStatistics.js}"></script>
+</head>
+
+<body>
+<!--页头start-->
+<div id="header">
+    <div th:include="commons/header :: html"></div>
+    <div th:include="commons/common :: html"></div>
+</div>
+<!--页头end-->
+
+<!-- 二级导航栏start -->
+<div th:include="commons/subNav :: html"></div>
+<!-- 二级导航栏end -->
+
+<!--遮罩层-->
+<div class="dialog-overlay" id="dialog-overlay" style="display:none;"></div>
+
+<!--支付start-->
+<div class="layer-body failureSuccess failurePayment" id="failurePayment"
+     style="display:none;width:500px;height:380px;top:65%;">
+    <a class="layer-close" th:href="@{/loan/page/toRecharge}"></a>
+    <div class="layer-top" style="background:#3cbe9b;height:105px;">支付</div>
+    <div class="layerBottom">
+        <div class="txt-cnt">请在新打开的页面上完成支付，<br/>由于第三方支付渠道问题，所以偶尔存在到账延迟的情况<br/>如没有及时到账，请您等候几分钟或联系客服 400-880-0000。</div>
+        <div class="failureClose clearfix">
+            <a class="fl" th:href="@{/loan/page/recharge}">支付遇到问题<br/>重新支付</a>
+            <a class="fr" th:href="@{/user/myRecharge}">支付完成</a>
+        </div>
+    </div>
+</div>
+<!--支付end-->
+
+<!--页中start-->
+<div class="mainBox">
+    <div class="homeWap">
+        <div class="fund-guanli clearfix">
+            <div class="left-nav">
+                <div th:include="commons/leftNav :: html"></div>
+            </div>
+
+            <div class="right-body">
+                <div class="leftTitle"><span class="on">第三方支付平台</span></div>
+                <p></p>
+                <p></p>
+                <div style="font-size: 20px">
+                    <h2>动力金融支付平台</h2>
+                    <div th:text="|订单号：${out_trade_no}|"></div>
+                    <div th:text="|订单金额：${rechargeMoney}元|"></div>
+                </div>
+
+                <div class="unrecognized" style = "display:block;" id="unrecognized1">
+                    <h3 >微信扫码支付</h3>
+                    <img th:src="@{/loan/weixin/qrcode}" width="200" height="200">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--页中end-->
+
+<!--页脚start-->
+<div th:include="commons/footer :: html"></div>
+<!--页脚end-->
+
+<script type="text/javascript">
+    var interval = setInterval( function(){
+        $("#dialog-overlay").show();
+        $("#failurePayment").show();
+        clearInterval(interval);
+    },20000);
+</script>
+</body>
+</html>

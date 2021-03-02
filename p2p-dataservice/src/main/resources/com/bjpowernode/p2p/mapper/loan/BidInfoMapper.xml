@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.p2p.mapper.loan.BidInfoMapper">
+  <resultMap id="BaseResultMap" type="com.bjpowernode.p2p.po.loan.BidInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="loan_id" jdbcType="INTEGER" property="loanId" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="bid_money" jdbcType="DECIMAL" property="bidMoney" />
+    <result column="bid_time" jdbcType="TIMESTAMP" property="bidTime" />
+    <result column="bid_status" jdbcType="INTEGER" property="bidStatus" />
+  </resultMap>
+
+  <!--自定义最近的投资记录和用户phone-->
+  <resultMap id="UserBidResultMap" type="com.bjpowernode.p2p.po.ext.UserBidInfo">
+    <result column="phone" property="phone" />
+    <result column="bid_money" property="bidMoney" />
+    <result column="bid_time" property="bidTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, loan_id, uid, bid_money, bid_time, bid_status
+  </sql>
+
+  <!--自定义开始-->
+  <!--累计投资金额-->
+  <select id="selectSumTotalBidMoney" resultType="java.math.BigDecimal">
+    SELECT
+	    sum(bid_money) AS totalBidMoney
+    FROM
+	    b_bid_info
+  </select>
+
+  <!--查询某个产品的最近10投资记录-->
+  <select id="selectRecentlyBidInfoList" resultMap="UserBidResultMap">
+    SELECT
+      u.phone,
+      b.bid_money,
+      b.bid_time
+    FROM
+        b_bid_info b
+    INNER JOIN u_user u ON b.uid = u.id
+    WHERE
+        b.loan_id = #{loanId}
+    ORDER BY
+        b.bid_time DESC
+    LIMIT 10
+  </select>
+
+
+  <!--按userid，查询投资记录-->
+  <select id="selectBidInfoPageByUserId" resultType="com.bjpowernode.p2p.po.ext.LoanBidInfo">
+    SELECT
+        l.product_name as productName,
+        b.bid_money as bidMoney,
+        b.bid_time as bidTime
+    FROM
+        b_bid_info b
+    INNER JOIN b_loan_info l ON b.loan_id = l.id
+    WHERE
+        b.uid = #{userId}
+    ORDER BY
+        bid_time DESC
+    LIMIT #{offSet}, #{pageSize}
+  </select>
+
+
+  <!--查询某个产品所有投资记录-->
+  <select id="selectAllBidInfoByLoan" resultMap="BaseResultMap">
+    SELECT
+     <include refid="Base_Column_List"/>
+    FROM
+      b_bid_info
+    WHERE
+      loan_id  = #{loanId}
+      and bid_status = 1
+    ORDER BY id
+  </select>
+
+
+
+
+  <!--自定义完成-->
+
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from b_bid_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from b_bid_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bjpowernode.p2p.po.loan.BidInfo">
+    insert into b_bid_info (id, loan_id, uid, 
+      bid_money, bid_time, bid_status
+      )
+    values (#{id,jdbcType=INTEGER}, #{loanId,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
+      #{bidMoney,jdbcType=DECIMAL}, #{bidTime,jdbcType=TIMESTAMP}, #{bidStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bjpowernode.p2p.po.loan.BidInfo">
+    insert into b_bid_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="loanId != null">
+        loan_id,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="bidMoney != null">
+        bid_money,
+      </if>
+      <if test="bidTime != null">
+        bid_time,
+      </if>
+      <if test="bidStatus != null">
+        bid_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="loanId != null">
+        #{loanId,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="bidMoney != null">
+        #{bidMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="bidTime != null">
+        #{bidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bidStatus != null">
+        #{bidStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bjpowernode.p2p.po.loan.BidInfo">
+    update b_bid_info
+    <set>
+      <if test="loanId != null">
+        loan_id = #{loanId,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="bidMoney != null">
+        bid_money = #{bidMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="bidTime != null">
+        bid_time = #{bidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bidStatus != null">
+        bid_status = #{bidStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bjpowernode.p2p.po.loan.BidInfo">
+    update b_bid_info
+    set loan_id = #{loanId,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      bid_money = #{bidMoney,jdbcType=DECIMAL},
+      bid_time = #{bidTime,jdbcType=TIMESTAMP},
+      bid_status = #{bidStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
