@@ -25,7 +25,7 @@ public interface LoanInfoMapper {
 
 
     /**
-     * 按产品类型，分页查询， Order by release_time desc
+     * 按产品发布时间，分页查询， Order by release_time desc
      * @return
      */
     List<LoanInfo> selectLoanInfoByProductTypeOrderByTime(@Param("type") Integer productType,

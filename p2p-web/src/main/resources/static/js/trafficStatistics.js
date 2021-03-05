@@ -286,7 +286,7 @@ function popupCompleteMsg(type,status,conpath,msg) {
 				 $(".dobeforething").attr("href","../../webPage/invest/standard_list.html");
 			 }else if(msg == "7"){
 	//			 $(".dobeforething").attr("href","../../");
-				 $(".dobeforething").attr("href","../../webPage/index/index1.html");
+				 $(".dobeforething").attr("href","../../webPage/index/index.html");
 			 }else{
 				 $("#earnMaskMsg").remove();
 				 $("#earnMsg").remove();

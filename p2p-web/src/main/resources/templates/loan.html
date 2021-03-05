@@ -24,7 +24,8 @@
 	<div class="mainBox pro-list-body clearfix" id="rollingLayer">
   	<div class="pro-list">
 	   	<!--已满标时追加pro-full-->
-		<div th:class="${loanInfo.leftProductMoney == 0 ? 'pro-box pro-full':'pro-box'}" th:each="loanInfo:${loanInfoList}"  >
+		<div th:class="${loanInfo.leftProductMoney == 0 ? 'pro-box pro-full':'pro-box'}"
+			 th:each="loanInfo:${loanInfoList}"  >
 		    <div class="pro-top">
 		      <h3 th:text="${loanInfo.productName}">个人信用消费借款</h3>
 		      <p>动力金融网特选小额信贷消费产品</p>

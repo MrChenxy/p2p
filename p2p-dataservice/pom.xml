@@ -84,6 +84,12 @@
             <artifactId>p2p-common</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!--分页插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper-spring-boot-starter.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,12 +1,15 @@
-package com.bjpowernode.p2p.impl.user;/**
+package com.bjpowernode.p2p.service.impl.user;/**
  * @author gsyzh
  * @create 2021-03-02 20:32
  */
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.bjpowernode.p2p.mapper.user.UserMapper;
 import com.bjpowernode.p2p.po.user.User;
 import com.bjpowernode.p2p.service.user.UserService;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  *
@@ -17,9 +20,13 @@ import org.springframework.stereotype.Component;
 @Service(interfaceClass = UserService.class,version = "1.0.0",timeout = 3500)
 public class UserServiceImpl implements UserService {
 
+    @Resource
+    private UserMapper userMapper;
+
+
     @Override
     public int sumTotalUser() {
-        return 10086;
+        return userMapper.countTotalUser();
     }
 
     @Override

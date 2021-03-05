@@ -43,13 +43,13 @@
     WHERE
         product_type = #{type}
     ORDER BY  rate DESC
-    LIMIT #{offSet}, #{rows}
+     LIMIT #{offSet}, #{rows}
   </select>
 
   <!--按产品类型，分页查询， Order by release_time desc-->
   <select id="selectLoanInfoByProductTypeOrderByTime" resultMap="BaseResultMap">
     SELECT
-	    <include refid="Base_Column_List"></include>
+	    <include refid="Base_Column_List"/>
     FROM
         b_loan_info
     WHERE

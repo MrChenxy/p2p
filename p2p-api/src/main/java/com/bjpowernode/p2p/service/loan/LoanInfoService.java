@@ -23,7 +23,7 @@ public interface LoanInfoService {
                                                   Integer pageSize);
 
     /**
-     * 分页查询产品，按Order by release_time desc
+     * 按发布时间分页查询产品，按Order by release_time desc
      * @param productType
      * @param pageNo
      * @param pageSize
