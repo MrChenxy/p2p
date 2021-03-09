@@ -9,9 +9,7 @@ import java.util.List;
 public interface RechargeRecordMapper {
 
     /**分页查询充值记录（充值成功的）*/
-    List<RechargeRecord> selectPageByUserId(@Param("userId") Integer userId,
-                                            @Param("offSet") Integer offSet,
-                                            @Param("pageSize") Integer pageSize);
+    List<RechargeRecord> selectPageByUserId(@Param("userId") Integer userId);
 
 
     /**

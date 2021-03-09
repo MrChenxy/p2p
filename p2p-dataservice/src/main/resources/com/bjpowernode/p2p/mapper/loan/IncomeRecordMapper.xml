@@ -35,6 +35,20 @@
     from b_income_record
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="selectAllIncomeByLoanId" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from b_income_record
+      where loan_id = #{loanId,jdbcType=INTEGER}
+
+    </select>
+  <select id="selectIncomeByStatus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from b_income_record
+    where income_status = #{status,jdbcType=INTEGER}
+
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from b_income_record
     where id = #{id,jdbcType=INTEGER}
@@ -140,4 +154,19 @@
       income_status = #{incomeStatus,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updataByLoanId">
+     update b_income_record
+    set
+      income_date = #{date,jdbcType=DATE}
+    where loan_id = #{loanId,jdbcType=INTEGER}
+    and income_status = #{status,jdbcType=INTEGER}
+  </update>
+    <update id="updataLoanOfStatus">
+       update b_income_record
+    set
+      income_status = #{afterStatus,jdbcType=DATE}
+    where loan_id = #{loanId,jdbcType=INTEGER}
+    and income_status = #{status,jdbcType=INTEGER}
+    </update>
+
 </mapper>

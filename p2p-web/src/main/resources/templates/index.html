@@ -88,7 +88,7 @@
 
             </div>
             <div class="index-exper-bottom">
-                <ul class="list cf" th:each="xLoan:${xLoanInfo}">
+                <ul class="list cf" th:each="xLoan:${xLoanInfo.list}">
                     <li class="box1">
                         <p class="text1" th:text="|${xLoan.rate}%|">15.0<span>%</span></p>
                         <p class="text2">历史年化收益率</p>
@@ -115,7 +115,7 @@
 
         <!-- 1:已满标时class样式追加 pro-full-->
         <div th:class="${ (yLoan.leftProductMoney == 0) ? 'pro-box pro-full' : 'pro-box' }"
-             th:each="yLoan:${yLoanInfo}">
+             th:each="yLoan:${yLoanInfo.list}">
             <div class="pro-top">
                 <h3 th:text="${yLoan.productName}">满月宝</h3>
                 <p>短期小额信用借款集合投资计划</p>
@@ -155,7 +155,7 @@
 
         <!-- 1:已满标时追加pro-full-->
         <div  th:class="${ (sLoan.leftProductMoney == 0) ? 'pro-box pro-full' : 'pro-box' }"
-              th:each="sLoan:${sLoanInfo}">
+              th:each="sLoan:${sLoanInfo.list}">
             <div class="pro-top">
                 <h3 th:text="${sLoan.productName}">个人信用消费借款</h3>
                 <p>动力金融网特选小额理财产品</p>

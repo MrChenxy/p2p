@@ -2,6 +2,7 @@ package com.bjpowernode.p2p.service.loan;
 
 
 import com.bjpowernode.p2p.po.loan.RechargeRecord;
+import com.github.pagehelper.PageInfo;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,9 +16,9 @@ public interface ReChargeService {
      * @param pageSize 每页大小
      * @return
      */
-    List<RechargeRecord> queryPageByUserId(Integer userId,
-                                           Integer pageNo,
-                                           Integer pageSize);
+    PageInfo queryPageByUserId(Integer userId,
+                               Integer pageNo,
+                               Integer pageSize);
 
 
     /**

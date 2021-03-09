@@ -43,7 +43,7 @@ $(function(){
 				dataType:'json',
 				type:"post",
 				success:function(resp){
-					if( resp.code  == 200 && resp.error == 1000){
+					if( resp.code  == 200){
 						//跳转到returnUrl
 						window.location.href= $("#returnUrlHidden").val();
 					} else {

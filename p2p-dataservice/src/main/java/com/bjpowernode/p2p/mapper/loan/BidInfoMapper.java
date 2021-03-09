@@ -21,12 +21,12 @@ public interface BidInfoMapper {
     List<UserBidInfo> selectRecentlyBidInfoList(@Param("loanId") Integer loanId);
 
     /**查询某个用户的分页的投资记录*/
-    List<LoanBidInfo> selectBidInfoPageByUserId(@Param("userId") Integer userId,
-                                                @Param("offSet") int offSet,
-                                                @Param("pageSize") Integer pageSize);
+    List<LoanBidInfo> selectBidInfoPageByUserId(@Param("userId") Integer userId);
 
     /**根据产品id,查询他的所有投资记录*/
     List<BidInfo> selectAllBidInfoByLoan(@Param("loanId") Integer loanId);
+
+    List<BidInfo> selectAllBidIn();
 
     int insert(BidInfo record);
 

@@ -59,7 +59,6 @@
         b.uid = #{userId}
     ORDER BY
         bid_time DESC
-    LIMIT #{offSet}, #{pageSize}
   </select>
 
 
@@ -71,7 +70,6 @@
       b_bid_info
     WHERE
       loan_id  = #{loanId}
-      and bid_status = 1
     ORDER BY id
   </select>
 
@@ -89,6 +87,12 @@
     from b_bid_info
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="selectAllBidIn" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from b_bid_info
+
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from b_bid_info
@@ -103,6 +107,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.bjpowernode.p2p.po.loan.BidInfo">
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into b_bid_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

@@ -39,6 +39,13 @@ public interface UserMapper {
      */
     int updateUserByPhone(User user);
 
+    /**
+     * 更新最后一次登录时间
+     * @param user
+     * @return
+     */
+    int updateLoginTimeByPhone(User user);
+
     /**自定义方法完成*/
     int deleteByPrimaryKey(Integer id);
 

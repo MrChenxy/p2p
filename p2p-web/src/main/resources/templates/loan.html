@@ -25,7 +25,7 @@
   	<div class="pro-list">
 	   	<!--已满标时追加pro-full-->
 		<div th:class="${loanInfo.leftProductMoney == 0 ? 'pro-box pro-full':'pro-box'}"
-			 th:each="loanInfo:${loanInfoList}"  >
+			 th:each="loanInfo:${loanInfoList.list}"  >
 		    <div class="pro-top">
 		      <h3 th:text="${loanInfo.productName}">个人信用消费借款</h3>
 		      <p>动力金融网特选小额信贷消费产品</p>
@@ -38,7 +38,7 @@
 		      <div class="pro-data clearfix">
 		        <div class="pro-cycle">
 		          <h3>投资周期</h3>
-		          <div class="data"><span th:text="|${loanInfo.cycle}个月|">9</span>个月</div>
+		          <div class="data"><span th:text="|${loanInfo.cycle}个月|">9</span></div>
 		        </div>
 		        <div class="pro-money">
 		          <h3>剩余可投金额</h3>
@@ -59,39 +59,23 @@
 		<tbody>
 		<tr>
 			<td>
-
-				<span th:text="|共${page.totalRows}条${page.totalPage}页 当前为第${page.pageNo}页|"></span>
-
-				<span th:if="${page.pageNo == 1}">
-					<a id="linkHomePage" href="javascript:void(0)">首页</a>
-					<a id="linkPreviousPage" href="javascript:void(0)">上一页</a>
+				<span th:text="|共${loanInfoList.total}条${loanInfoList.pages}页 当前为第${loanInfoList.pageNum}页|"></span>
+				<span>
+					<a th:href="@{/loan/loan(ptype=2,page=1,size=9)}">首页</a>
+					<a th:href="@{/loan/loan(ptype=2,page=${loanInfoList.pageNum-1},size=9)}">上一页</a>
 				</span>
-
-				<span th:unless="${page.pageNo == 1}">
-					<a id="linkHomePage" th:href="@{/loan/loan( ptype=${productType}, pageNo=1) }">首页</a>
-					<a id="linkPreviousPage" th:href="@{ /loan/loan( ptype=${productType} , pageNo=${page.pageNo-1} ) }">上一页</a>
+			<!--	<span th:each="${loanInfoList.pages}">
+					<a th:href="@{/loan/loan(ptype=2,page=${pageNum},size=9)}" th:text="${pageNum}">2</a>
+				</span>-->
+				<span>
+					<a th:href="@{/loan/loan(ptype=2,page=${loanInfoList.pageNum+1},size=9)}">下一页</a>
+					<a th:href="@{/loan/loan(ptype=2,page=${loanInfoList.pages},size=9)}">尾页</a>
 				</span>
-
-				<span th:if="${page.pageNo != page.totalPage}">
-					<a id="linkNextPage" th:href="@{/loan/loan( ptype=${productType}, pageNo=${page.pageNo+1} ) }">下一页 </a>
-					<a id="linkLastPage" th:href="@{/loan/loan( ptype=${productType}, pageNo=${page.totalPage} ) }">尾页</a>
-				</span>
-
-				<span th:if="${page.pageNo == page.totalPage}">
-					<a id="linkNextPage" href="javascript:void(0)">下一页 </a>
-					<a id="linkLastPage" href="javascript:void(0)">尾页</a>
-				</span>
-
-
-
-
 			</td>
-
 		</tr>
 		</tbody>
 	</table>
-	<!--页码 end-->
-  	</div>
+  	</div><!--页码 end-->
   
 	<div class="right-side">
 	    <div class="side-box fixed" id="roll" style="top: 0px;">

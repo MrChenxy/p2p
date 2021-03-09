@@ -53,14 +53,13 @@ $(function() {
 		} else if( !/^1[1-9]\d{9}$/.test(phone)){
 			showError("phone","手机号不正确");
 		} else {
-
 			//发送ajax ，检查手机号是否已经注册过。
 			$.ajax({
-				url: contextPath + "/loan/checkPhone",
+				url: "/web/loan/checkPhone",
 				data:"phone="+phone,
 				dataType:"json",
 				success:function(data){
-					if( data.code == 200){
+					if(data.code == 200){
 						showSuccess("phone",data.message);
 					} else {
 						showError("phone",data.message);
@@ -71,13 +70,10 @@ $(function() {
 				}
 			})
 		}
-
-	})
-	//手机号验证完成
+	});//手机号验证完成
 
 	//密码的blur事件
 	$("#loginPassword").on("blur",function(){
-
 		var pwd = $.trim( $("#loginPassword").val()  );
 		if( pwd == "") {
 			showError("loginPassword","必须输入密码")
@@ -90,23 +86,20 @@ $(function() {
 		} else {
 			showSuccess("loginPassword")
 		}
-	})
-	//密码的blur事件完成
+	});//密码的blur事件完成
 
 	//验证码文本框
 	$("#messageCode").on("blur",function(){
 		var code = $.trim($("#messageCode").val());
 		if( ""==code){
 			showError("messageCode","请输入验证码");
-		} else if( code.length != 4){
+		} else if( code.length != 6){
 			showError("messageCode","请输入正确的验证码，有效时间60秒")
 		} else {
 			showSuccess("messageCode");
 		}
 
-	})
-
-	//验证码文本框完成
+	});//验证码文本框完成
 
 	//到计时按钮单击事件
 	$("#messageCodeBtn").on("click",function(){
@@ -114,16 +107,15 @@ $(function() {
 		$("#phone").blur();
 		//获取错误的文本
 		var text = $.trim($("#phoneErr").text());
-
 		//手机号的值是正确的
 		if( "" == text){
 			var btnObj = $("#messageCodeBtn");
 			if( !btnObj.hasClass("on") ){
 				//没有on样式，
 				btnObj.addClass("on");
-				$.leftTime(5,function(d){
+				$.leftTime(60,function(d){
 					var  second = parseInt(d.s);
-					btnObj.text( (second == 0 ? "5": second) + "秒后获取");
+					btnObj.text( (second == 0 ? "60": second) + "秒后获取");
 					if( second == 0 ){
 						btnObj.removeClass("on");
 					}
@@ -132,14 +124,11 @@ $(function() {
 				//发送短信验证码。
 				$.post(contextPath+"/loan/sendCode",
 					   "phone="+ $.trim( $("#phone").val() ),
-					    function(resp){
-					       alert("验证="+resp.data);
-					    },
 					    "json"
 				       )
 			}
 		}
-	})
+	});
 	//单击完成
 
 
@@ -165,7 +154,7 @@ $(function() {
 				dataType:"json",
 				success:function(resp){
 					// 实名认证
-					if( resp.code  == 200 && resp.error == 1000){
+					if( resp.code == 200){
 						window.location.href= contextPath + "/loan/page/realName";
 					} else {
 						alert(resp.message);

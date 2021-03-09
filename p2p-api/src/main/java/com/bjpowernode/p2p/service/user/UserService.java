@@ -36,6 +36,13 @@ public interface UserService {
     int  modifyUser(User user);
 
     /**
+     * 更新用户最后一次登录时间
+     * @param user
+     * @return
+     */
+    int modifyLoginTime(User user);
+
+    /**
      * 登录
      * @param phone 手机号
      * @param pwd   md5加密过的密码

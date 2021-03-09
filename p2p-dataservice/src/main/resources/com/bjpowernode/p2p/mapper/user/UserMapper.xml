@@ -45,16 +45,20 @@
     WHERE
       phone=#{phone}
   </update>
-
+<!--更新最后一次登录时间-->
+  <update id="updateLoginTimeByPhone">
+    UPDATE
+       u_user
+    SET
+      last_login_time=#{lastLoginTime}
+    WHERE
+      phone=#{phone}
+  </update>
 
   <!--注册用户，返回主键id-->
   <insert id="insertUserReturnId">
     INSERT INTO u_user(phone,login_password,add_time)
     VALUES(#{phone},#{loginPassword},#{addTime})
-
-    <selectKey keyColumn="userId" keyProperty="id" resultType="java.lang.Integer" order="AFTER">
-      SELECT LAST_INSERT_ID() as userId FROM dual
-    </selectKey>
   </insert>
 
   <!--自定义完成-->
@@ -170,4 +174,5 @@
       header_image = #{headerImage,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>

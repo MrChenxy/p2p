@@ -9,6 +9,7 @@
         <module name="p2p-api" />
         <module name="p2p-common" />
         <module name="p2p-dataservice" />
+        <module name="p2p-task" />
         <module name="p2p-web" />
       </profile>
     </annotationProcessing>
@@ -25,6 +26,7 @@
       <module name="p2p-common" options="-parameters" />
       <module name="p2p-dataservice" options="-parameters" />
       <module name="p2p-dataservices" options="-parameters" />
+      <module name="p2p-task" options="-parameters" />
       <module name="p2p-web" options="-parameters" />
     </option>
   </component>

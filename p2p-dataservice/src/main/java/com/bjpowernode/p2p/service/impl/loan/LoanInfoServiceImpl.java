@@ -7,6 +7,8 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.bjpowernode.p2p.mapper.loan.LoanInfoMapper;
 import com.bjpowernode.p2p.po.loan.LoanInfo;
 import com.bjpowernode.p2p.service.loan.LoanInfoService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -32,8 +34,17 @@ public class LoanInfoServiceImpl implements LoanInfoService {
 
     @Override
     public List<LoanInfo> queryLoanInfoByProductTypePage(Integer productType, Integer pageNo, Integer pageSize) {
-        //PageHelper.startPage(pageNo, pageSize);
-        return loanInfoMapper.selectLoanInfoByProductTypePage(productType, pageNo, pageSize);
+        PageHelper.startPage(pageNo, pageSize);
+        List<LoanInfo> loanInfos = loanInfoMapper.selectLoanInfoByProductTypePage(productType);
+        return loanInfos;
+    }
+
+    @Override
+    public PageInfo queryLoanInfoByTypeAndPage(Integer productType, Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<LoanInfo> loanInfos = loanInfoMapper.selectLoanInfoByProductTypePage(productType);
+        PageInfo pageInfo = new PageInfo(loanInfos);
+        return pageInfo;
     }
 
     @Override
@@ -48,6 +59,26 @@ public class LoanInfoServiceImpl implements LoanInfoService {
 
     @Override
     public LoanInfo queryLoanInfoById(Integer loanId) {
-        return null;
+        LoanInfo loanInfo = loanInfoMapper.selectByPrimaryKey(loanId);
+        return loanInfo;
+    }
+
+    /**
+     * 更新money, 使用乐观锁
+     * @param loanId
+     * @param ver
+     * @param money
+     * @return
+     */
+    @Override
+    public int updateLoanInfoOfMoney(Integer loanId, Integer ver, BigDecimal money) {
+        int nums = loanInfoMapper.updateLoanInfoById(loanId, money, ver);
+        return nums;
+    }
+
+    @Override
+    public int updateLoanInfoById(LoanInfo loanInfo) {
+        int nums = loanInfoMapper.updateByPrimaryKeySelective(loanInfo);
+        return nums;
     }
 }

@@ -21,8 +21,8 @@
         <module>../p2p-api</module>
         <module>../p2p-dataservice</module>
         <module>../p2p-web</module>
-        <!--<module>../p2p-task</module>
-        <module>../p2p-pay</module>-->
+       <!-- <module>../p2p-task</module>-->
+       <!--<module>../p2p-pay</module>-->
     </modules>
 
     <packaging>pom</packaging>

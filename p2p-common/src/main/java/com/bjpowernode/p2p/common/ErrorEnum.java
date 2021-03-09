@@ -22,7 +22,10 @@ public enum ErrorEnum {
     private Integer code;
     private String msg;
 
-    private ErrorEnum(Integer code,String msg){
+    ErrorEnum() {
+    }
+
+    private ErrorEnum(Integer code, String msg){
         this.code = code;
         this.msg = msg;
     }

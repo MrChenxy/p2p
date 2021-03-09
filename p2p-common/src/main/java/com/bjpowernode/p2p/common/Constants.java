@@ -2,6 +2,9 @@ package com.bjpowernode.p2p.common;
 
 public class Constants {
 
+    //ajax常用值1,0
+    public static final String RETURN_OBJECT_CODE_SUCCESS="1";
+    public static final String RETURN_OBJECT_CODE_FAIL="0";
 
     //session中的key，表示用户
     public static final String SESSION_USER = "user";
@@ -72,4 +75,15 @@ public class Constants {
 
     //支付宝支付， 生成的唯一订单号使用的
     public static final String ALIPAY_TRANDE_NO_NUMBER = "PAY:ALIPAY:TRADENO" ;
+
+
+    public static final String HTTPCLIENT_RESPONSE_STR = "{\n" +
+            "    \"code\": \"10000\",\n" +
+            "    \"charge\": false,\n" +
+            "    \"remain\": 0,\n" +
+            "    \"msg\": \"查询成功\",\n" +
+            "    \"result\": \"<?xml version=\\\"1.0\\\" encoding=\\\"utf-8\\\" ?><returnsms>\\n <returnstatus>Success</returnstatus>\\n <message>ok</message>\\n <remainpoint>-1111611</remainpoint>\\n <taskID>101609164</taskID>\\n <successCounts>1</successCounts></returnsms>\"\n" +
+            "}";
+
+
 }

@@ -45,7 +45,7 @@
                 <ul class="credenBalance">
                     <li class="availMoney">
                         <h3>可用余额：</h3>
-                        <span class="moneyIcon"><i th:text="|${#numbers.formatCurrency( (avaiableMoney == null ? 0: avaiableMoney) )}元|">¥ 9000.0 元</i></span>
+                        <span class="moneyIcon"><i th:text="|${session.avaiableMoney}元|">¥ 9000.0 元</i></span>
                         <a class="recharge" th:href="@{/loan/page/toRecharge}">充值</a>
                         <a class="inves" th:href="@{/loan/loan}">投资</a>
                     </li>
@@ -66,7 +66,7 @@
                             <span class="money">投资金额</span>
                             <span class="profit">投资时间</span>
                         </dt>
-                        <dd th:each="bidInfo,bidInfoStat:${loanBidInfos}">
+                        <dd th:each="bidInfo,bidInfoStat:${loanBidInfos.list}">
                             <span class="name" th:text="${bidInfoStat.count}">1</span>
                             <span class="number" th:text="${bidInfo.productName}" >个人消费贷</span>
                             <span class="money" th:text="${bidInfo.bidMoney}">5000.0</span>
@@ -92,7 +92,7 @@
                     </dt>
 
 
-                    <dd th:each="recharge:${rechargeInfos}">
+                    <dd th:each="recharge:${rechargeInfos.list}">
                         <span class="name" style="text-align:left;" th:text="${rechargeStat.count}">1</span>
                         <span class="number" th:text="${recharge.rechargeDesc}">支付理财</span>
                         <span class="money" th:text="${recharge.rechargeMoney}">1000.0</span>

@@ -27,7 +27,7 @@ public interface FinanceAccountMapper {
 
     /***
      * 更新账号的金额
-     * @param id
+     * @param
      * @return
      */
     int updateFinanceAccount(@Param("userId") Integer userId,

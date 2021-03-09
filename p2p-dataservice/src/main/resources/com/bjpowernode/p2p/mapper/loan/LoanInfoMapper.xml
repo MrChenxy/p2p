@@ -43,7 +43,6 @@
     WHERE
         product_type = #{type}
     ORDER BY  rate DESC
-     LIMIT #{offSet}, #{rows}
   </select>
 
   <!--按产品类型，分页查询， Order by release_time desc-->
@@ -86,7 +85,7 @@
   <!--按产品状态查询产品-->
   <select id="selectByProductStatus" resultMap="BaseResultMap">
      SELECT
-        <include refid="Base_Column_List"></include>
+        <include refid="Base_Column_List"/>
      FROM
         b_loan_info
      WHERE
@@ -106,6 +105,11 @@
     from b_loan_info
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="selectAllLoanInfo" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List"/>
+      from b_loan_info
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from b_loan_info

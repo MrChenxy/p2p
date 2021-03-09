@@ -4,6 +4,8 @@ package com.bjpowernode.p2p.service.loan;
 import com.bjpowernode.p2p.common.ErrorEnum;
 import com.bjpowernode.p2p.po.ext.LoanBidInfo;
 import com.bjpowernode.p2p.po.ext.UserBidInfo;
+import com.bjpowernode.p2p.po.loan.BidInfo;
+import com.github.pagehelper.PageInfo;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,13 +27,19 @@ public interface BidInfoService {
     /**
      * 查询某个用户的分页的投资记录
      */
-    List<LoanBidInfo> queryLoanBidInfoByPage(Integer userId,
-                                             Integer pageNo,
-                                             Integer pageSize);
+    PageInfo queryLoanBidInfoByPage(Integer userId,
+                                    Integer pageNo,
+                                    Integer pageSize);
 
 
     /**
      * 投资
      */
     ErrorEnum invest(Integer userId, Integer loanId, BigDecimal bidMoney);
+
+    int insertBidInfoOfLoan(Integer userId, Integer loanId, BigDecimal bidMoney);
+
+    List<BidInfo> queryAllBidInfoByLoanId(Integer loanId);
+
+
 }

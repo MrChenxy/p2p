@@ -20,13 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.*;
 
-/**
- * ClassName:HttpClientUtils
- * Package:com.bjpowernode.p2p.common.util.http
- * Description:<br/>
- * @author:郭鑫
- * @email:41700175@qq.com
- */
+
 public class HttpClientUtils {
 
     /**

@@ -30,8 +30,6 @@
     AND recharge_status = 1
     ORDER BY
         recharge_time DESC
-    LIMIT #{offSet},#{pageSize}
-
   </select>
 
   <!--按订单号查询充值记录-->

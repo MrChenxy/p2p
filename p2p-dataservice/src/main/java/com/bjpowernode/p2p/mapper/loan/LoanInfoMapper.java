@@ -19,9 +19,7 @@ public interface LoanInfoMapper {
      * 按产品类型，分页查询， Order by Rate desc
      * @return
      */
-    List<LoanInfo> selectLoanInfoByProductTypePage(@Param("type") Integer productType,
-                                                   @Param("offSet") Integer offSet,
-                                                   @Param("rows") Integer rows);
+    List<LoanInfo> selectLoanInfoByProductTypePage(@Param("type") Integer productType);
 
 
     /**
@@ -61,6 +59,11 @@ public interface LoanInfoMapper {
      */
     List<LoanInfo> selectByProductStatus(@Param("status") Integer status);
 
+    /**
+     * 查询所有的loaonInfo
+     * @return
+     */
+    List<LoanInfo> selectAllLoanInfo();
     /**自定义完成*/
     int deleteByPrimaryKey(Integer id);
 

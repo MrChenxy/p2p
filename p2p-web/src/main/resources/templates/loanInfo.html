@@ -29,24 +29,24 @@
       <!-- 产品详情start -->
       <div class="pro-info-details">
         <div class="pro-name">
-          <h2><span th:text="${loanInfo?.productName}">季度宝 (20170726期)</span></h2>
+          <h2><span th:text="${loanInfo.productName}">季度宝 (20170726期)</span></h2>
         </div>
         <div class="pro-info">
           <ul class="clearfix">
             <li class="info-1">
               <p>历史年化利率</p>
-              <h3>[[${loanInfo?.rate}]]%</h3>
+              <h3>[[${loanInfo.rate}]]%</h3>
               <div class="info-bt">
               <span>本产品采用普通利率</span>
               </div>
             </li>
             <li class="info-2">
               <p>募集金额(元)</p>
-              <h3 th:text="${loanInfo?.productMoney}">500000.0</h3>
+              <h3 th:text="${loanInfo.productMoney}">500000.0</h3>
               <div class="info-bt">
-              	<span th:switch="${loanInfo?.productStatus}">
+              	<span th:switch="${loanInfo.productStatus}">
               		<!-- 只有状态为0时为募集，其它都为已满标 -->
-                    <span th:case="0" th:text="|募集中,剩余募集金额${loanInfo?.leftProductMoney}元|"></span>
+                    <span th:case="0" th:text="|募集中,剩余募集金额${loanInfo.leftProductMoney}元|"></span>
                     <span th:case="*">已满标</span>
               		<!-- 已满标 -->
               	</span>
@@ -55,9 +55,9 @@
             <li class="info-3">
               <p>投资周期</p>
               <!-- 只有新手宝产品周期为天 -->
-              <span th:switch="${loanInfo?.productType}">
-                   <h3 th:case="0">[[${loanInfo?.cycle}]]天</h3>
-                   <h3 th:case="*">[[${loanInfo?.cycle}]]个月</h3>
+              <span th:switch="${loanInfo.productType}">
+                   <h3 th:case="0">[[${loanInfo.cycle}]]天</h3>
+                   <h3 th:case="*">[[${loanInfo.cycle}]]个月</h3>
               </span>
 
               <div class="info-bt"><span></span></div>
@@ -87,14 +87,13 @@
 			<!-- 如果投资记录为空，显示以下文字 -->
 			<dd style="text-align:center;" th:if="${#lists.size(userBidInfos) == 0 }">该产品暂时还没有人投资，赶快去投资吧~</dd>
 			
-            <!-- 如果有投资记录，循环遍历显示 -->
+            <!--如果有投资记录，循环遍历显示 -->
             <dd th:each="bidInfo:${userBidInfos}">
                 <span class="record-num" th:text="${bidInfoStat.count}">1</span>
                 <span class="invest-user" th:text="|${#strings.substring(bidInfo.phone,0,3)}******${#strings.substring(bidInfo.phone,9,11)}|">137******89</span>
                 <span class="invest-money" th:text="${bidInfo.bidMoney}">1000.0</span>
                 <span class="invest-time" th:text="${#dates.format(bidInfo.bidTime,'yyyy-MM-dd HH:mm:ss')}">2017-09-12 13:34:22</span>
             </dd>
-
 		</dl>
 		</div>
       </div>
@@ -118,7 +117,7 @@
 	            	<span style="font-size:18px;color:#ff6161;vertical-align:bottom;"  th:if="${session.user eq null}"><a href="javascript:void(0)" class="btn-login">请登录</a></span>
 	        
 	            	<!-- 判断用户是否登录：已登录，显示可用余额 -->
-	           		<span style="font-size:18px;color:#ff6161;vertical-align:bottom;" th:if="${session.user ne null}" th:text="|${#numbers.formatCurrency(availableMoney)}元|">1,000,12 元</span>
+	           		<span style="font-size:18px;color:#ff6161;vertical-align:bottom;" th:if="${session.user ne null}" th:text="|${availableMoney}元|">1,000,12 元</span>
 	        
             </dd>
           </dl>
@@ -207,16 +206,17 @@ function checkMoney(){
 function invest(){
   checkMoney();
   var text = $.trim( $(".max-invest-money").text() );
+  var shouyimoney = $.trim( $("#shouyi").text());
   if(  ""  == text){
     var bidMoney = $.trim( $("#bidMoney").val()  );
     //发起ajax请求
     $.ajax({
       url: contextPath + "/bid/invest",
       type:"post",
-      data:{ "loanId" : loanId , "money" : bidMoney },
+      data:{ "loanId" : loanId , "money" : bidMoney,"shouyi" : shouyimoney,"type" : type},
       dataType:"json",
       success:function(resp){
-          if( resp.code == 200 && resp.error == 1000){
+          if( resp.code == 200){
             //跳到用户中心myCenter
             window.location.href= contextPath + "/loan/myCenter";
           } else {

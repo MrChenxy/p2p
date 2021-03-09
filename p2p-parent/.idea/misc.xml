@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/../demo/pom.xml" />
         <option value="$PROJECT_DIR$/../p2p-dataservice/pom.xml" />
         <option value="$PROJECT_DIR$/../p2p-web/pom.xml" />
+        <option value="$PROJECT_DIR$/../p2p-task/pom.xml" />
       </list>
     </option>
   </component>

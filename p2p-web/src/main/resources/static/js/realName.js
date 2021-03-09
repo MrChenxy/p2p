@@ -25,7 +25,7 @@ $(function() {
 			showSuccess("realName");
 		}
 
-	})
+	});
 	//姓名完成
 
 	//身份证号
@@ -40,7 +40,7 @@ $(function() {
 		} else {
 			showSuccess("idCard");
 		}
-	})
+	});
 
 	//身份证号
 
@@ -51,36 +51,26 @@ $(function() {
 		$("#realName").blur();
 
 		//判断有无错误文本
-		var errorText  = $("div[id$='Err']").text();
-		if( ""== errorText ){
-
+		var nameErr = $.trim($("#realName").text());
+		var idCardErr = $.trim($("#idCard").text());
+		if( "" == nameErr && idCardErr == "" ){
 			if( !$("#messageCodeBtn").hasClass("on") ){
 				//可以去发送短信
-				$("#messageCodeBtn").addClass("on")
-				$.leftTime(10,function(d){
+				$("#messageCodeBtn").addClass("on");
+				$.leftTime(60,function(d){
 					var second = parseInt(d.s);
-					$("#messageCodeBtn").text( (second == 0 ? 10: second) +"秒,获取" );
+					$("#messageCodeBtn").text( (second == 0 ? 60: second) +"秒,获取" );
 					if(second == 0 ){
 						$("#messageCodeBtn").removeClass("on");
 					}
 				});
 
 				//发送ajax请求
-				$.ajax({
-					url : contextPath+"/loan/sendCode",
-					data: "phone="+ $.trim($("#phone").val()),
-					type:"post",
-					dataType:"json",
-					success:function(resp){
-						if( resp.code ==200 && resp.error==1000){
-							//弹出层，显示发送成功的文字。
-							alert("验证码："+resp.data);
-						}
-					},
-					error:function(){
-						showError("messageCodeBtn","请稍后重试")
-					}
-				})
+				//发送短信验证码。
+				$.post(contextPath+"/loan/sendCode",
+					"phone="+ $.trim( $("#phone").val() ),
+					"json"
+				)
 			}
 		}
 
@@ -91,8 +81,8 @@ $(function() {
 		var code = $.trim($("#messageCode").val());
 		if( "" == code ){
 			showError("messageCode","验证码不能空");
-		} else if( code.length != 4){
-			showError("messageCode","验证码必须是4位的字符")
+		} else if( code.length != 6){
+			showError("messageCode","验证码必须是6位的字符")
 		} else{
 			showSuccess("messageCode")
 		}
@@ -118,7 +108,7 @@ $(function() {
 				type:"post",
 				dataType:"json",
 				success:function(resp){
-					if(resp.code == 200 && resp.error==1000){
+					if(resp.code == 200){
 						// 跳转到用户中心
 						window.location.href = contextPath + "/loan/myCenter";
 					} else {

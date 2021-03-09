@@ -2,7 +2,7 @@ package com.bjpowernode.p2p.service.loan;
 
 
 import com.bjpowernode.p2p.po.loan.LoanInfo;
-
+import com.github.pagehelper.PageInfo;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -21,7 +21,9 @@ public interface LoanInfoService {
     List<LoanInfo> queryLoanInfoByProductTypePage(Integer productType,
                                                   Integer pageNo,
                                                   Integer pageSize);
-
+    PageInfo queryLoanInfoByTypeAndPage(Integer productType,
+                                        Integer pageNo,
+                                        Integer pageSize);
     /**
      * 按发布时间分页查询产品，按Order by release_time desc
      * @param productType
@@ -44,4 +46,15 @@ public interface LoanInfoService {
      * @return
      */
     LoanInfo queryLoanInfoById(Integer loanId);
+
+    /**
+     * 根据loanId更新left_money
+     * @param loanId
+     * @param ver
+     * @param money
+     * @return
+     */
+    int updateLoanInfoOfMoney(Integer loanId,Integer ver,BigDecimal money);
+
+    int updateLoanInfoById(LoanInfo loanInfo);
 }
